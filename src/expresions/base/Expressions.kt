@@ -3,25 +3,25 @@ package expresions.base
 import context.Context
 import java.security.AccessControlContext
 
-interface Expression<T> {
-    fun solve(context: Context): T
+interface Expression {
+    fun solve(context: Context): Any?
     val priority: Int
 }
 
-interface TerminalExpression<T>: Expression<T>
+interface TerminalExpression: Expression
 
-interface NonTerminalExpression: Expression<Int>
+interface NonTerminalExpression: Expression
 
-interface UnaryExpression<T>: TerminalExpression<T> {
+interface UnaryExpression: TerminalExpression {
 
-    var firstExpression: Expression<*>?
+    var firstExpression: Expression?
 
 }
 
-interface BinaryExpression<T, F, S>: TerminalExpression<T> {
+interface BinaryExpression: TerminalExpression {
 
-    var firstExpression: Expression<F>?
-    var secondExpression: Expression<S>?
+    var firstExpression: Expression?
+    var secondExpression: Expression?
 
 }
 
