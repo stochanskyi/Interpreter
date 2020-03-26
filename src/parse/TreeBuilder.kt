@@ -15,6 +15,8 @@ import expresions.nonTerminalExpresions.ioExpressions.PrintExpression
 import expresions.nonTerminalExpresions.logicalExpressions.AndExpression
 import expresions.nonTerminalExpresions.logicalExpressions.NotExpression
 import expresions.nonTerminalExpresions.logicalExpressions.OrExpression
+import expresions.nonTerminalExpresions.variables.CreateVariableExpression
+import expresions.nonTerminalExpresions.variables.InitExpression
 
 object TreeBuilder {
 
@@ -78,11 +80,12 @@ object TreeBuilder {
                     "<" -> LessExpression()
                     ">=" -> MoreEqualsExpression()
                     "<=" -> LessEqualsExpression()
+                    "=" -> InitExpression()
                     "print" -> PrintExpression()
+                    "var" -> CreateVariableExpression()
                     else -> when {
                         expressionText.toIntOrNull() != null -> ConstantNumberExpression(expressionText.toInt())
-
-                        else -> VariablesExpression(text)
+                        else -> VariablesExpression(expressionText)
                     }
                 }
             )
@@ -93,16 +96,19 @@ object TreeBuilder {
 
     private val Expression.priority: Int
     get() = when(this) {
-        is PrintExpression -> 20
+        is InitExpression-> 20
+        is PrintExpression -> 15
         is OrExpression -> 9
         is AndExpression -> 8
         is EqualsExpression, is NotEqualsExpression -> 7
         is MoreExpression, is LessExpression, is MoreEqualsExpression, is LessEqualsExpression -> 6
         is DivideExpression, is MultiplyExpression -> 5
-        is PlusExpression -> 4
+        is PlusExpression, is MinusExpression -> 4
         is NotExpression -> 3
+        is CreateVariableExpression -> 2
+        is VariablesExpression -> 1
         is TerminalExpression -> 0
-        else-> throw Exception()
+        else-> throw Exception("Unknown expression")
     }
 
 }
