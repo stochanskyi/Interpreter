@@ -106,8 +106,8 @@ object TreeBuilder {
         is AndExpression -> 8
         is EqualsExpression, is NotEqualsExpression -> 7
         is MoreExpression, is LessExpression, is MoreEqualsExpression, is LessEqualsExpression -> 6
-        is DivideExpression, is MultiplyExpression -> 5
-        is PlusExpression, is MinusExpression -> 4
+        is PlusExpression, is MinusExpression -> 5
+        is DivideExpression, is MultiplyExpression -> 4
         is NotExpression -> 3
         is CreateVariableExpression -> 2
         is VariablesExpression -> 1

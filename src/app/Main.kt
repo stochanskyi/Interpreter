@@ -1,7 +1,7 @@
 package app
 
 fun main() {
-    Performer.perform("var a = true\n" +
-            "a = false\n" +
+    Performer.perform(
+        "var a = 2 * 2 + 2\n" +
             "print a")
 }
