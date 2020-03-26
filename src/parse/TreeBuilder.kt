@@ -17,6 +17,8 @@ import expresions.nonTerminalExpresions.logicalExpressions.NotExpression
 import expresions.nonTerminalExpresions.logicalExpressions.OrExpression
 import expresions.nonTerminalExpresions.variables.CreateVariableExpression
 import expresions.nonTerminalExpresions.variables.InitExpression
+import expresions.terminalExpresions.FalseLiteralExpression
+import expresions.terminalExpresions.TrueLiteralExpression
 
 object TreeBuilder {
 
@@ -83,6 +85,8 @@ object TreeBuilder {
                     "=" -> InitExpression()
                     "print" -> PrintExpression()
                     "var" -> CreateVariableExpression()
+                    "true" -> TrueLiteralExpression()
+                    "false" -> FalseLiteralExpression()
                     else -> when {
                         expressionText.toIntOrNull() != null -> ConstantNumberExpression(expressionText.toInt())
                         else -> VariablesExpression(expressionText)

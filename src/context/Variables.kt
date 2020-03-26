@@ -7,6 +7,7 @@ interface Variables {
     fun getValue(name: String): Any?
     fun setValue(name: String, value: Any): Boolean
     fun contains(name: String): Boolean
+    fun isInitialized(name: String): Boolean
 
 }
 
@@ -40,4 +41,5 @@ class VariablesImpl: Variables {
 
     override fun contains(name: String): Boolean = variablesMap.contains(name)
 
+    override fun isInitialized(name: String): Boolean = variablesMap[name] !=null
 }

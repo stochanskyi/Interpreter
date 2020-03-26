@@ -7,9 +7,9 @@ import java.lang.Exception
 
 class AndExpression: BinaryExpression(), BooleanExpression {
     override fun solve(context: Context): Boolean {
-        val lValue = firstExpression?.solve(Context) as? Boolean?: throw Exception("Not boolean first operator for and(&&) expression")
-        val rValue = secondExpression?.solve(Context) as? Boolean?: throw Exception("Not boolean second operator for and(&&) expression")
+        val lValue = firstExpression as? BooleanExpression?: throw Exception("Not boolean first operator for and(&&) expression")
+        val rValue = secondExpression as? BooleanExpression?: throw Exception("Not boolean second operator for and(&&) expression")
 
-        return lValue && rValue
+        return lValue.solve(Context) || rValue.solve(Context)
     }
 }
