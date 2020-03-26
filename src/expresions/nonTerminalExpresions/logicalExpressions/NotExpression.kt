@@ -7,7 +7,7 @@ import expresions.base.UnaryExpression
 import java.lang.Exception
 
 class NotExpression: UnaryExpression(), BooleanExpression {
-    override fun solve(context: Context): Boolean? {
+    override fun solve(context: Context): Boolean {
         val value = firstExpression?.solve(Context) as? Boolean?: throw Exception("Not boolean operator for not(!!) expression")
         return !value
     }

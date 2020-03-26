@@ -3,9 +3,9 @@ package context
 import kotlin.Exception
 
 interface Variables {
-    fun createVar(name:String, value: Int = 0): Boolean
-    fun getValue(name: String): Int?
-    fun setValue(name: String, value: Int): Boolean
+    fun createVar(name:String): Boolean
+    fun getValue(name: String): Any?
+    fun setValue(name: String, value: Any): Boolean
     fun contains(name: String): Boolean
 
 }
@@ -14,16 +14,16 @@ class VariableRedefinitionException: Exception("Variable is already defined")
 
 class VariablesImpl: Variables {
 
-    private val variablesMap = HashMap<String, Int>()
+    private val variablesMap = HashMap<String, Any?>()
 
-    override fun createVar(name: String, value: Int): Boolean {
+    override fun createVar(name: String): Boolean {
         if (contains(name)) throw VariableRedefinitionException()
 
-        variablesMap[name] = value
+        variablesMap[name] = null
         return true
     }
 
-    override fun setValue(name: String, value: Int): Boolean {
+    override fun setValue(name: String, value: Any): Boolean {
         if(!contains(name)) {
             return false
         }
@@ -32,7 +32,7 @@ class VariablesImpl: Variables {
         return true
     }
 
-    override fun getValue(name: String): Int? =
+    override fun getValue(name: String): Any? =
         when (contains(name)) {
             false -> null
             true -> variablesMap[name]

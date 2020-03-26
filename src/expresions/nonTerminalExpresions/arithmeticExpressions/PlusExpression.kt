@@ -6,7 +6,7 @@ import java.lang.Exception
 
 class PlusExpression : BinaryExpression() {
 
-    override fun solve(context: Context): Any? {
+    override fun solve(context: Context): Any {
         val leftExpression = firstExpression?.solve(Context)
         val rightExpression = secondExpression?.solve(Context)
         return when (leftExpression){

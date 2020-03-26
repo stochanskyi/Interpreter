@@ -3,9 +3,9 @@ package expresions.base
 import context.Context
 
 interface BooleanExpression: Expression {
-    override fun solve(context: Context): Boolean?
+    override fun solve(context: Context): Boolean
 }
 
 interface IntegerExpression: Expression {
-    override fun solve(context: Context): Int?
+    override fun solve(context: Context): Int
 }

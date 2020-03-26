@@ -7,8 +7,7 @@ import java.security.AccessControlContext
 
 class VariablesExpression(val name: String): TerminalExpression {
 
-
-    override fun solve(context: Context): Int {
+    override fun solve(context: Context): Any {
         return context.variables.getValue(name)!!
     }
 }

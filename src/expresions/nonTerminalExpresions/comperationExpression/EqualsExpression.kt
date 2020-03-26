@@ -13,6 +13,6 @@ class EqualsExpression: BinaryExpression, BooleanExpression {
 
     constructor()
 
-    override fun solve(context: Context): Boolean? = firstExpression?.solve(Context) == secondExpression?.solve(Context)
+    override fun solve(context: Context): Boolean = firstExpression?.solve(Context) == secondExpression?.solve(Context)
 
 }

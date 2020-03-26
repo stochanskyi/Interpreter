@@ -4,7 +4,7 @@ import context.Context
 import java.security.AccessControlContext
 
 interface Expression {
-    fun solve(context: Context): Any?
+    fun solve(context: Context): Any
 }
 
 interface TerminalExpression: Expression
