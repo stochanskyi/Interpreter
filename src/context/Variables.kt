@@ -1,5 +1,7 @@
 package context
 
+import kotlin.Exception
+
 interface Variables {
     fun createVar(name:String, value: Int = 0): Boolean
     fun getValue(name: String): Int?
@@ -8,16 +10,14 @@ interface Variables {
 
 }
 
+class VariableRedefinitionException: Exception("Variable is already defined")
 
 class VariablesImpl: Variables {
 
     private val variablesMap = HashMap<String, Int>()
 
     override fun createVar(name: String, value: Int): Boolean {
-
-        if (contains(name)) {
-            return false
-        }
+        if (contains(name)) throw VariableRedefinitionException()
 
         variablesMap[name] = value
         return true

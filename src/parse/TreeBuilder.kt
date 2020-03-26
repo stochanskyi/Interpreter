@@ -4,10 +4,17 @@ import expresions.base.BinaryExpression
 import expresions.base.Expression
 import expresions.base.TerminalExpression
 import expresions.base.UnaryExpression
+import expresions.nonTerminalExpresions.arithmeticExpressions.DivideExpression
+import expresions.nonTerminalExpresions.arithmeticExpressions.MinusExpression
+import expresions.nonTerminalExpresions.arithmeticExpressions.MultiplyExpression
 import expresions.terminalExpresions.ConstantNumberExpression
 import expresions.terminalExpresions.VariablesExpression
 import expresions.nonTerminalExpresions.arithmeticExpressions.PlusExpression
+import expresions.nonTerminalExpresions.comperationExpression.*
 import expresions.nonTerminalExpresions.ioExpressions.PrintExpression
+import expresions.nonTerminalExpresions.logicalExpressions.AndExpression
+import expresions.nonTerminalExpresions.logicalExpressions.NotExpression
+import expresions.nonTerminalExpresions.logicalExpressions.OrExpression
 
 object TreeBuilder {
 
@@ -56,27 +63,29 @@ object TreeBuilder {
         val expressionList = ArrayList<Expression>()
 
         for (expressionText in expressionsListText) {
-            var expression: Expression
-            when {
-                expressionText == "+" -> {
+            expressionList.add(
+                when(expressionText) {
+                    "+" -> PlusExpression()
+                    "-" -> MinusExpression()
+                    "*" -> MultiplyExpression()
+                    "/" -> DivideExpression()
+                    "!" -> NotExpression()
+                    "&&" -> AndExpression()
+                    "||" -> OrExpression()
+                    "==" -> EqualsExpression()
+                    "!=" -> NotEqualsExpression()
+                    ">" -> MoreExpression()
+                    "<" -> LessExpression()
+                    ">=" -> MoreEqualsExpression()
+                    "<=" -> LessEqualsExpression()
+                    "print" -> PrintExpression()
+                    else -> when {
+                        expressionText.toIntOrNull() != null -> ConstantNumberExpression(expressionText.toInt())
 
-                    expression = PlusExpression()
+                        else -> VariablesExpression(text)
+                    }
                 }
-                expressionText == "print" -> {
-
-                    expression = PrintExpression()
-                }
-                expressionText.toIntOrNull() != null -> {
-
-                    expression =
-                        ConstantNumberExpression(expressionText.toInt())
-                }
-                else -> {
-
-                    expression = VariablesExpression(text)
-                }
-            }
-            expressionList.add(expression)
+            )
         }
 
         return expressionList
@@ -85,8 +94,13 @@ object TreeBuilder {
     private val Expression.priority: Int
     get() = when(this) {
         is PrintExpression -> 20
-        //AssignExpression 18
-        is PlusExpression -> 16
+        is OrExpression -> 9
+        is AndExpression -> 8
+        is EqualsExpression, is NotEqualsExpression -> 7
+        is MoreExpression, is LessExpression, is MoreEqualsExpression, is LessEqualsExpression -> 6
+        is DivideExpression, is MultiplyExpression -> 5
+        is PlusExpression -> 4
+        is NotExpression -> 3
         is TerminalExpression -> 0
         else-> throw Exception()
     }
