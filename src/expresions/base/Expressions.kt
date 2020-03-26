@@ -5,23 +5,22 @@ import java.security.AccessControlContext
 
 interface Expression {
     fun solve(context: Context): Any?
-    val priority: Int
 }
 
 interface TerminalExpression: Expression
 
 interface NonTerminalExpression: Expression
 
-interface UnaryExpression: TerminalExpression {
+abstract class UnaryExpression: NonTerminalExpression {
 
-    var firstExpression: Expression?
+    var firstExpression: Expression? = null
 
 }
 
-interface BinaryExpression: TerminalExpression {
+abstract class BinaryExpression: NonTerminalExpression {
 
-    var firstExpression: Expression?
-    var secondExpression: Expression?
+    var firstExpression: Expression? = null
+    var secondExpression: Expression? = null
 
 }
 

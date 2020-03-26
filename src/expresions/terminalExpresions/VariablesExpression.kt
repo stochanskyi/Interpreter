@@ -1,12 +1,12 @@
-package expresions.nonTerminalExpresions
+package expresions.terminalExpresions
 
 import context.Context
 import expresions.base.NonTerminalExpression
+import expresions.base.TerminalExpression
 import java.security.AccessControlContext
 
-class VariablesExpression(val name: String): NonTerminalExpression {
+class VariablesExpression(val name: String): TerminalExpression {
 
-    override val priority: Int = 0
 
     override fun solve(context: Context): Int {
         return context.variables.getValue(name)!!

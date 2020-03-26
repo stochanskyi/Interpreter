@@ -2,11 +2,12 @@ package parse
 
 import expresions.base.BinaryExpression
 import expresions.base.Expression
+import expresions.base.TerminalExpression
 import expresions.base.UnaryExpression
-import expresions.nonTerminalExpresions.ConstantNumberExpression
-import expresions.nonTerminalExpresions.VariablesExpression
-import expresions.terminalExpresions.arithmeticOperations.PlusExpression
-import expresions.terminalExpresions.ioExpressions.PrintExpression
+import expresions.terminalExpresions.ConstantNumberExpression
+import expresions.terminalExpresions.VariablesExpression
+import expresions.nonTerminalExpresions.arithmeticExpressions.PlusExpression
+import expresions.nonTerminalExpresions.ioExpressions.PrintExpression
 
 object TreeBuilder {
 
@@ -25,8 +26,8 @@ object TreeBuilder {
 
     private fun addToTree(treeHead: Expression?, node: Expression): Expression = when {
         treeHead == null -> node
-        treeHead.priority > node?.priority -> checkChildesAndAdd(treeHead, node)
-        treeHead.priority == node?.priority -> checkChildesAndAdd(node, treeHead)
+        treeHead.priority > node.priority -> checkChildesAndAdd(treeHead, node)
+        treeHead.priority == node.priority -> checkChildesAndAdd(node, treeHead)
         else -> addToTree(node, treeHead)
     }
 
@@ -46,6 +47,7 @@ object TreeBuilder {
 
         else -> addToTree(node, treeHead!!)
 
+
     }
 
     private fun lineToExpressionsList(text: String): List<Expression> {
@@ -55,18 +57,24 @@ object TreeBuilder {
 
         for (expressionText in expressionsListText) {
             var expression: Expression
-            if (expressionText == "+") {
+            when {
+                expressionText == "+" -> {
 
-                expression = PlusExpression()
-            } else if (expressionText == "print") {
+                    expression = PlusExpression()
+                }
+                expressionText == "print" -> {
 
-                expression = PrintExpression()
-            } else if (expressionText.toIntOrNull() != null) {
+                    expression = PrintExpression()
+                }
+                expressionText.toIntOrNull() != null -> {
 
-                expression = ConstantNumberExpression(expressionText.toInt())
-            }  else {
+                    expression =
+                        ConstantNumberExpression(expressionText.toInt())
+                }
+                else -> {
 
-                expression = VariablesExpression(text)
+                    expression = VariablesExpression(text)
+                }
             }
             expressionList.add(expression)
         }
@@ -74,5 +82,13 @@ object TreeBuilder {
         return expressionList
     }
 
+    private val Expression.priority: Int
+    get() = when(this) {
+        is PrintExpression -> 20
+        //AssignExpression 18
+        is PlusExpression -> 16
+        is TerminalExpression -> 0
+        else-> throw Exception()
+    }
 
 }
