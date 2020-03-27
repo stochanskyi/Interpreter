@@ -3,9 +3,9 @@ package context
 import kotlin.Exception
 
 interface Variables {
-    fun createVar(name:String): Boolean
+    fun createVar(name:String)
     fun getValue(name: String): Any?
-    fun setValue(name: String, value: Any): Boolean
+    fun setValue(name: String, value: Any)
     fun contains(name: String): Boolean
     fun isInitialized(name: String): Boolean
 
@@ -13,24 +13,23 @@ interface Variables {
 
 class VariableRedefinitionException: Exception("Variable is already defined")
 
+class VariableNotFoundException: Exception("Variable doesn't exist")
+
 class VariablesImpl: Variables {
 
     private val variablesMap = HashMap<String, Any?>()
 
-    override fun createVar(name: String): Boolean {
+    override fun createVar(name: String) {
         if (contains(name)) throw VariableRedefinitionException()
 
         variablesMap[name] = null
-        return true
     }
 
-    override fun setValue(name: String, value: Any): Boolean {
-        if(!contains(name)) {
-            return false
-        }
+    override fun setValue(name: String, value: Any) {
+        if(!contains(name)) throw VariableNotFoundException()
+
 
         variablesMap[name] = value
-        return true
     }
 
     override fun getValue(name: String): Any? =
