@@ -1,16 +1,12 @@
 package app
 
 import context.Context
-import parse.TextParser
-import parse.TreeBuilder
+import execution.builder.AppBuilder
+import utils.run
 
 object Performer {
 
-    fun perform(text: String){
-        val lines = TextParser.parseByLines(text)
-        for (line in lines) {
-            TreeBuilder.buildTree(line).solve(Context)
-        }
-
+    fun perform(code: String){
+        AppBuilder.build(code).run(Context)
     }
 }

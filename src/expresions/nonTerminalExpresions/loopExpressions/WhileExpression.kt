@@ -4,7 +4,7 @@ import context.Context
 import expresions.base.BooleanExpression
 import expresions.base.Expression
 import expresions.base.UnitExpression
-import utils.solve
+import utils.run
 
 class WhileExpression: UnitExpression {
     var condition: BooleanExpression? = null
@@ -13,8 +13,8 @@ class WhileExpression: UnitExpression {
     override fun solve(context: Context) {
         condition?.let {
             while (condition!!.solve(context)) {
-                block?.solve(context) ?: throw Exception("While block cannot be null")
+                block?.run(context) ?: throw Exception("While block cannot be null")
             }
-        }?: throw Exception(message = "Condition cannot be null")
+        }?: throw Exception("Condition cannot be null")
     }
 }

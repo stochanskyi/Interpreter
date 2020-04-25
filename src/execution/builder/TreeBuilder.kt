@@ -1,9 +1,5 @@
-package parse
+package execution.builder
 
-import expresions.base.BinaryExpression
-import expresions.base.Expression
-import expresions.base.TerminalExpression
-import expresions.base.UnaryExpression
 import expresions.nonTerminalExpresions.arithmeticExpressions.DivideExpression
 import expresions.nonTerminalExpresions.arithmeticExpressions.MinusExpression
 import expresions.nonTerminalExpresions.arithmeticExpressions.MultiplyExpression
@@ -19,11 +15,14 @@ import expresions.nonTerminalExpresions.variables.CreateVariableExpression
 import expresions.nonTerminalExpresions.variables.InitExpression
 import expresions.terminalExpresions.FalseLiteralExpression
 import expresions.terminalExpresions.TrueLiteralExpression
+import execution.parsr.TextParser
+import expresions.base.*
 
 object TreeBuilder {
 
     fun buildTree(text: String): Expression {
 
+        if (text.trim().isEmpty()) return EmptyExpression()
         val expressions = lineToExpressionsList(text)
 
         var treeHead: Expression? = null
@@ -45,9 +44,11 @@ object TreeBuilder {
     private fun checkChildesAndAdd(treeHead: Expression?, node: Expression): Expression = when (treeHead) {
         is BinaryExpression -> {
             if(treeHead.firstExpression == null) {
-                treeHead.firstExpression = addToTree(treeHead.secondExpression, node)
+                treeHead.firstExpression =
+                    addToTree(treeHead.secondExpression, node)
             } else {
-                treeHead.secondExpression = addToTree(treeHead.secondExpression, node)
+                treeHead.secondExpression =
+                    addToTree(treeHead.secondExpression, node)
             }
             treeHead
         }
@@ -63,10 +64,11 @@ object TreeBuilder {
 
     private fun lineToExpressionsList(text: String): List<Expression> {
 
-        val expressionsListText = TextParser.parseBySpace(text)
+        val expressionsListText = TextParser.parseBySpace(text).map { it.trim() }
         val expressionList = ArrayList<Expression>()
 
         for (expressionText in expressionsListText) {
+            if(expressionText.trim().isEmpty()) continue
             expressionList.add(
                 when(expressionText) {
                     "+" -> PlusExpression()

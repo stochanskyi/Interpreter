@@ -1,4 +1,4 @@
-package parse
+package execution.parsr
 
 object TextParser {
     fun parseByLines(text: String): List<String> = text.lines()

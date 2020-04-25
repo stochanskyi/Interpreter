@@ -9,3 +9,9 @@ interface BooleanExpression: Expression {
 interface IntegerExpression: Expression {
     override fun solve(context: Context): Int
 }
+
+interface UnitExpression: Expression {
+    override fun solve(context: Context) {}
+}
+
+class EmptyExpression: UnitExpression
