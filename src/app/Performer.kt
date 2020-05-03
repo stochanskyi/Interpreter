@@ -8,6 +8,6 @@ import utils.run
 object Performer {
 
     fun perform(code: String){
-        AppBuilder.build(code).apply { optimize() }.run(Context)
+        AppBuilder.build(code).optimize().run(Context)
     }
 }

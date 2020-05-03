@@ -24,3 +24,4 @@ abstract class BinaryExpression: NonTerminalExpression {
 
 }
 
+interface BlockExpression: Expression
