@@ -53,7 +53,8 @@ object BlockParser {
                     blocks += BlockModel(lines.subList(0, endIndex + 1), BlockType.ELSE).also { cuttingIndex = endIndex + 1 }
                 }
                 line.startsWith("while") -> {
-
+                    val endIndex = lines.indexOfFirst { it.startsWith("}") }
+                    blocks += BlockModel(lines.subList(0, endIndex + 1), BlockType.WHILE).also { cuttingIndex = endIndex + 1 }
                 }
                 else -> blocks += BlockModel(listOf(line), BlockType.SIMPLE).also { cuttingIndex++ }
             }
