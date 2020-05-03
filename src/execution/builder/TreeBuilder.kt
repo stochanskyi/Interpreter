@@ -4,7 +4,7 @@ import expresions.nonTerminalExpresions.arithmeticExpressions.DivideExpression
 import expresions.nonTerminalExpresions.arithmeticExpressions.MinusExpression
 import expresions.nonTerminalExpresions.arithmeticExpressions.MultiplyExpression
 import expresions.terminalExpresions.ConstantNumberExpression
-import expresions.terminalExpresions.VariablesExpression
+import expresions.terminalExpresions.VariableExpression
 import expresions.nonTerminalExpresions.arithmeticExpressions.PlusExpression
 import expresions.nonTerminalExpresions.comperationExpression.*
 import expresions.nonTerminalExpresions.ioExpressions.PrintExpression
@@ -91,7 +91,7 @@ object TreeBuilder {
                     "false" -> FalseLiteralExpression()
                     else -> when {
                         expressionText.toIntOrNull() != null -> ConstantNumberExpression(expressionText.toInt())
-                        else -> VariablesExpression(expressionText)
+                        else -> VariableExpression(expressionText)
                     }
                 }
             )
@@ -112,7 +112,7 @@ object TreeBuilder {
         is DivideExpression, is MultiplyExpression -> 4
         is NotExpression -> 3
         is CreateVariableExpression -> 2
-        is VariablesExpression -> 1
+        is VariableExpression -> 1
         is TerminalExpression -> 0
         else-> throw Exception("Unknown expression")
     }
