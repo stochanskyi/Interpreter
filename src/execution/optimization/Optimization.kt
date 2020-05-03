@@ -8,7 +8,7 @@ import expresions.nonTerminalExpresions.variables.InitExpression
 import expresions.terminalExpresions.VariableExpression
 import java.lang.IllegalStateException
 
-fun List<Expression>.optimize(): {
+fun List<Expression>.optimize() {
     val code = this.toMutableList()
     val variables = mutableMapOf<String, Expression>()
     for (expression in code) {
