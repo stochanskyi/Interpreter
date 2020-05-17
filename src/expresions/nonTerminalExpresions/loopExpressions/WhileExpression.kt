@@ -1,12 +1,13 @@
 package expresions.nonTerminalExpresions.loopExpressions
 
 import context.Context
+import expresions.base.BlockExpression
 import expresions.base.BooleanExpression
 import expresions.base.Expression
 import expresions.base.UnitExpression
 import utils.run
 
-class WhileExpression: UnitExpression {
+class WhileExpression: UnitExpression, BlockExpression {
     var condition: BooleanExpression? = null
     var block: List<Expression>? = null
 
