@@ -36,6 +36,6 @@ class TreePresenter : BasePresenter<TreeContract.ViewContract>(),
     }
 
     override fun onExecuteClick() {
-        listener.openResultScreen(code)
+        listener.openResultScreen(code, optimize)
     }
 }

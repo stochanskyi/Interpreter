@@ -10,5 +10,5 @@ interface Navigation {
 
     fun openOptimisedScreen(code: String)
 
-    fun openResultScreen(code: String)
+    fun openResultScreen(code: String, optimize: Boolean)
 }

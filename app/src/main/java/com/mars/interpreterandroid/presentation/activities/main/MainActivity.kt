@@ -2,7 +2,9 @@ package com.mars.interpreterandroid.presentation.activities.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.constraintlayout.solver.widgets.Optimizer
 import com.mars.interpreterandroid.R
+import com.mars.interpreterandroid.presentation.fragments.result.impl.ResultFragment
 import com.mars.interpreterandroid.presentation.fragments.start.StartContract
 import com.mars.interpreterandroid.presentation.fragments.start.impl.StartFragment
 import com.mars.interpreterandroid.presentation.fragments.tree.impl.TreeFragment
@@ -44,7 +46,11 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun openResultScreen(code: String) {
-
+    override fun openResultScreen(code: String, optimize: Boolean) {
+        supportFragmentManager.beginTransaction().apply {
+            addToBackStack(null)
+            add(R.id.contentFrame, ResultFragment.newInstance(code, optimize))
+            commit()
+        }
     }
 }
