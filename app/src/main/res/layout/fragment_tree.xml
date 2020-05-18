@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".presentation.activities.main.MainActivity">
 
     <com.otaliastudios.zoom.ZoomLayout
@@ -27,4 +28,31 @@
 
     </com.otaliastudios.zoom.ZoomLayout>
 
+    <Button
+        android:id="@+id/buttonOptimize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rounded"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:text="Optimize"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonExecute"/>
+
+    <Button
+        android:id="@+id/buttonExecute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rounded"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:text="Execute"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buttonOptimize"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

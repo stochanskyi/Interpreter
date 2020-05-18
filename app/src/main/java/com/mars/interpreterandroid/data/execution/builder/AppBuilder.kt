@@ -22,6 +22,6 @@ object AppBuilder {
                 BlockType.WHILE -> codeTrees += WhileBuilder.build(block.code)
             }
         }
-        return ComplexExpression("SOMETHING", codeTrees.toList().trim())
+        return ComplexExpression("App", codeTrees.toList().trim())
     }
 }

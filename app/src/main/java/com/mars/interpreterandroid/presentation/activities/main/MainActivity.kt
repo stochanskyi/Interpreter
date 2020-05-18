@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.mars.interpreterandroid.R
 import com.mars.interpreterandroid.presentation.fragments.start.StartContract
 import com.mars.interpreterandroid.presentation.fragments.start.impl.StartFragment
+import com.mars.interpreterandroid.presentation.fragments.tree.impl.TreeFragment
 
 class MainActivity : AppCompatActivity(),
     Navigation {
@@ -30,16 +31,16 @@ class MainActivity : AppCompatActivity(),
     override fun openTreeScreen(code: String) {
         supportFragmentManager.beginTransaction().apply {
             addToBackStack(null)
-//            add(R.id.contentFrame, StartFragment.newInstance())
+            add(R.id.contentFrame, TreeFragment.newInstance(code))
             commit()
         }
     }
 
-    override fun openResultScreen(result: String) {
+    override fun openOptimisedScreen(code: String) {
 
     }
 
-    override fun openOptimisedScreen(code: String) {
+    override fun openResultScreen(code: String) {
 
     }
 }
