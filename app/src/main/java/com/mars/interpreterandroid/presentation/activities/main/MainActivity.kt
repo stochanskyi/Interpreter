@@ -31,13 +31,17 @@ class MainActivity : AppCompatActivity(),
     override fun openTreeScreen(code: String) {
         supportFragmentManager.beginTransaction().apply {
             addToBackStack(null)
-            add(R.id.contentFrame, TreeFragment.newInstance(code))
+            add(R.id.contentFrame, TreeFragment.newInstance(code, false))
             commit()
         }
     }
 
     override fun openOptimisedScreen(code: String) {
-
+        supportFragmentManager.beginTransaction().apply {
+            addToBackStack(null)
+            add(R.id.contentFrame, TreeFragment.newInstance(code, true))
+            commit()
+        }
     }
 
     override fun openResultScreen(code: String) {

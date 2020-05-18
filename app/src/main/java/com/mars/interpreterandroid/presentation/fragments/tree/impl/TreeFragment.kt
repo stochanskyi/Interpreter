@@ -13,9 +13,11 @@ class TreeFragment: BaseFragment<TreeContract.PresenterContract>(R.layout.fragme
     TreeContract.ViewContract{
     companion object {
         private const val KEY_CODE= "key_code"
-        fun newInstance(code: String) = TreeFragment().apply {
+        private const val KEY_OPTIMIZE = "key_optimize"
+        fun newInstance(code: String, optimize: Boolean) = TreeFragment().apply {
             arguments = Bundle().apply {
                 putString(KEY_CODE, code)
+                putBoolean(KEY_OPTIMIZE, optimize)
             }
         }
     }
@@ -27,7 +29,9 @@ class TreeFragment: BaseFragment<TreeContract.PresenterContract>(R.layout.fragme
     override fun initPresenter() {
         presenter?.attachView(this)
         val code = arguments!!.getString(KEY_CODE)!!
-        presenter?.init(code, activity as Navigation)
+        val optimize = arguments!!.getBoolean(KEY_OPTIMIZE)
+        presenter?.init(code, optimize, activity as Navigation)
+        if(optimize) buttonOptimize.visibility = View.GONE
     }
 
     override fun initViews(view: View?) {

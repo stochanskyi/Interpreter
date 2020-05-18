@@ -11,7 +11,7 @@ interface TreeContract {
     }
 
     interface PresenterContract : IBasePresenter<ViewContract> {
-        fun init(code: String, listener: Navigation)
+        fun init(code: String, optimize: Boolean,  listener: Navigation)
         fun onOptimizeClick()
         fun onExecuteClick()
     }
