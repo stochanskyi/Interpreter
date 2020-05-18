@@ -1,7 +1,6 @@
-package com.mars
+package com.mars.interpreterandroid
 
 import android.content.Context
-import com.mars.interpreterandroid.R
 
 object FileAdapter {
     fun readInputFile(context: Context): List<String> {
